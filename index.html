@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="/static/style.css" type="text/css">
+
+<html>
+<head>
+<title>Video Streaming</title>
+</head>
+<body>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  
+<table width="100%" border="0">
+
+<tr> 
+<td>
+</td>
+<td align = "right">
+<form action="/logout">
+	<p><strong><a href="/logout"><font color="#ffffff">Logout </font></a></strong></p>
+</form>
+</td>
+</tr>
+  <tr valign="top">
+    <td bgcolor="#ffffff" width="150">
+      <center><br /><b><div class="app-title2">
+						<h2>Most Watched Videos</h2>
+					</div></b></center><br />
+{% for item in range(no_videos) %}
+      		<center> <img src="{{url_for('static', filename=mostwatchedframe[item])}}" style="width:100px;height:100px" onclick="myFunc('{{mostwatched[item]}}')"/></center><br />
+      		{% endfor %}
+    </td>
+    <td valign="middle" bgcolor="#eee" width="100" height="200">
+	<center>
+		<img id="vid" src="{{mostwatched[current]}}" width="640" height="480">
+    	</center>
+    </td>
+  </tr>
+  
+  <tr>
+      <td colspan="2" bgcolor="#ffffff" width="100" height="200" style = "text-align: center;">
+        <center><b><div class="app-title2">
+						<h2>All Videos</h2>
+					</div></b></center><br />
+<table style="width:100%">
+  <col align="center">      		
+<tr>
+{% for item in range(no_videos) %}
+<td valign="middle">
+<center>
+<img src="{{url_for('static', filename=allvideosframe[item])}}" style="width:100px;height:100px" onclick="myFunc('{{allvideos[item]}}')"/><br />
+</center>
+</td>      		
+{% endfor %}
+	</tr>
+	</table>
+    </td>
+  </tr>
+</table>  	
+
+<script>
+//function myFunction(n) { $.getJSON('/new', n:n.val(), )
+    //console.log(n)
+    //console.log({{current}})
+	//$.post( "/new", { name: "John", video: n} );
+//}
+
+function myFunc(s) {
+    document.getElementById("vid").src = s
+    $.post( "/new", { video_clicked: s} );
+    console.log(s)
+}
+
+
+</script>
+
+</body>
+</html>
+
